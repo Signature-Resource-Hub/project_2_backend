@@ -1,0 +1,127 @@
+var user=require('../model/user');
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+// Helper function to validate email format
+function isValidEmail(email) {
+    // Regular expression to check email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Example usage:
+const email = "example@example.com";
+if (isValidEmail(email)) {
+    console.log("Email is valid");
+} else {
+    console.log("Email is invalid");
+}
+
+
+
+
+
+
+    
+//function isValidEmail(email) {
+   // return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+//}
+
+// Update email
+exports.updateEmail = (req, res) => {
+    const { email } = req.body;
+
+    // Validate email
+    if (!email || !isValidEmail(email)) {
+        return res.status(400).json({ 'msg': 'Invalid email' });
+    }
+
+    // Update email in the database
+    const { _id } = req.body;
+    user.updateOne({ _id }, { $set: { email } })
+        .then(data => {
+            if (data) {
+                return res.status(200).json(data);
+            } else {
+                return res.status(400).json({ 'msg': 'Failed to update email' });
+            }
+        })
+        .catch(err => {
+            return res.status(500).json({ 'msg': 'Internal Server Error', 'error': err });
+        });
+};
+    exports.updateprofile = async (req, res) => {
+        try {
+          console.log(req.body);
+          const requiredFields = ['community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke', 'startlove', 'weight', 'yourgoals', 'gender'];
+        const emptyFields = requiredFields.filter(field => !req.body[field]);
+
+        if (emptyFields.length > 0) {
+            return res.status(400).json({ message: "Please insert all required fields", emptyFields });
+        }
+          const updateDoc = {
+            $set: req.body, // Include all fields in the update document
+          };
+      
+          const updatedUser = await user.updateOne({ _id: req.body._id }, updateDoc);
+          if (updatedUser) {
+            console.log("Profile updated successfully!");
+            res.json({ message: "Profile updated successfully", data: updatedUser }); // Send a success response
+          } else {
+            console.log("Profile with the provided _id not found");
+            res.status(404).json({ message: "Profile not found" }); // Send a 404 error if not found
+          }
+        } 
+        catch (error) {
+          console.error(error);
+          res.status(500).json({ message: "Internal server error" }); // Send a 500 error for unexpected issues
+        }
+      };
+// Update user_type
+exports.updateUserType = (req, res) => {
+    const { user_type } = req.body;
+
+    // Validate user_type
+    if (!user_type || !isValidUserType(user_type)) {
+        return res.status(400).json({ 'msg': 'Invalid user_type' });
+    }
+
+    // Update user_type in the database
+    Pro.findByIdAndUpdate(req.user.id, { user_type }, { new: true }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ 'msg': err.message });
+        }
+        res.status(200).json(user);
+    });
+};
+
+// Helper function to validate email format
+function isValidEmail(email) {
+    // Implement your email validation logic here
+    // For example, you could use a regular expression or a library like validator.js
+}
+
+// Helper function to validate user_type
+function isValidUserType(user_type) {
+    // Implement your user_type validation logic here
+    // For example, you could check if it's one of the allowed user types
+    return user_type === "user" || user_type === "admin"; // Example validation
+}
+
+
+
