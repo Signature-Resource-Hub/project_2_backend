@@ -1,29 +1,11 @@
-var user=require('../model/user');
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
+var user=require('../Model/usermodel');
+var reg = require('../Model/registermodel')
 // Helper function to validate email format
 function isValidEmail(email) {
     // Regular expression to check email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
-
 // Example usage:
 const email = "example@example.com";
 if (isValidEmail(email)) {
@@ -31,26 +13,13 @@ if (isValidEmail(email)) {
 } else {
     console.log("Email is invalid");
 }
-
-
-
-
-
-
-    
-//function isValidEmail(email) {
-   // return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-//}
-
 // Update email
 exports.updateEmail = (req, res) => {
     const { email } = req.body;
-
     // Validate email
     if (!email || !isValidEmail(email)) {
         return res.status(400).json({ 'msg': 'Invalid email' });
     }
-
     // Update email in the database
     const { _id } = req.body;
     user.updateOne({ _id }, { $set: { email } })
@@ -100,7 +69,6 @@ exports.updateUserType = (req, res) => {
     if (!user_type || !isValidUserType(user_type)) {
         return res.status(400).json({ 'msg': 'Invalid user_type' });
     }
-
     // Update user_type in the database
     Pro.findByIdAndUpdate(req.user.id, { user_type }, { new: true }, (err, user) => {
         if (err) {
@@ -109,17 +77,13 @@ exports.updateUserType = (req, res) => {
         res.status(200).json(user);
     });
 };
-
 // Helper function to validate email format
 function isValidEmail(email) {
     // Implement your email validation logic here
     // For example, you could use a regular expression or a library like validator.js
 }
-
 // Helper function to validate user_type
 function isValidUserType(user_type) {
-    // Implement your user_type validation logic here
-    // For example, you could check if it's one of the allowed user types
     return user_type === "user" || user_type === "admin"; // Example validation
 }
 
