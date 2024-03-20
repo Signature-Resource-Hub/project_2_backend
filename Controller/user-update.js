@@ -1,5 +1,5 @@
-var user=require('../Model/usermodel');
-var reg = require('../Model/registermodel')
+var user=require('../Model/user');
+var reg = require('../Model/register')
 // Helper function to validate email format
 function isValidEmail(email) {
     // Regular expression to check email format
