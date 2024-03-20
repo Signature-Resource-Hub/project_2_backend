@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require("body-parser"); 
 const cookieParser = require("cookie-parser"); 
 const cors = require("cors");
-var userRoutes = require('./routes/user');
+var userRoutes = require('./routes/user-update');
 //DB Connection mongoose
 mongoose.connect(process.env.DATABASE, {}) .then(() => {
 console.log("DB CONNECTED"); });
