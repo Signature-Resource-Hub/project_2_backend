@@ -10,7 +10,7 @@ exports.verifyUser = (req, res) => {
     const contactnumber = req.body.contactnumber;
     if (!contactnumber) {
         return res.status(400).json({ msg: 'Please provide contact number' });
-    } else if (contactnumber.length != 10) {
+    } else if(contactnumber.length!=10){
         return res.status(400).json({ msg: 'Please provide valid contact number' });
     }
     else {

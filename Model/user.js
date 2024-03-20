@@ -19,7 +19,7 @@ var userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        required: true,
+        required: true
     },
     dob: {
         type: Date,
