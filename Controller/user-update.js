@@ -1,5 +1,21 @@
 var user=require('../Model/user');
 var reg = require('../Model/register')
+
+exports.getUser=(req,res)=>{
+    user.findOne({_id:req.body.userId}).then((data)=>{
+        if (data) {
+            res.status(200).json(data);
+            console.log(data)
+        }
+        else {
+            console.log("1s")
+            return res.status(400).json({ 'msg': "internalserver" });
+        }
+    });
+}
+
+    
+
 // Helper function to validate email format
 function isValidEmail(email) {
     // Regular expression to check email format
@@ -37,10 +53,11 @@ exports.updateEmail = (req, res) => {
     exports.updateprofile = async (req, res) => {
         try {
           console.log(req.body);
-          const requiredFields = ['community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke', 'startlove', 'weight', 'yourgoals', 'gender'];
+          const requiredFields = ['name','community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke','weight', 'yourgoals', ];
         const emptyFields = requiredFields.filter(field => !req.body[field]);
 
         if (emptyFields.length > 0) {
+            console.log("1");
             return res.status(400).json({ message: "Please insert all required fields", emptyFields });
         }
           const updateDoc = {
@@ -49,6 +66,7 @@ exports.updateEmail = (req, res) => {
       
           const updatedUser = await user.updateOne({ _id: req.body._id }, updateDoc);
           if (updatedUser) {
+            console.log("2");
             console.log("Profile updated successfully!");
             res.json({ message: "Profile updated successfully", data: updatedUser }); // Send a success response
           } else {
@@ -58,6 +76,7 @@ exports.updateEmail = (req, res) => {
         } 
         catch (error) {
           console.error(error);
+          console.log("3");
           res.status(500).json({ message: "Internal server error" }); // Send a 500 error for unexpected issues
         }
       };
@@ -67,11 +86,13 @@ exports.updateUserType = (req, res) => {
 
     // Validate user_type
     if (!user_type || !isValidUserType(user_type)) {
+          console.log("4");
         return res.status(400).json({ 'msg': 'Invalid user_type' });
     }
     // Update user_type in the database
     Pro.findByIdAndUpdate(req.user.id, { user_type }, { new: true }, (err, user) => {
         if (err) {
+          console.log("5");
             return res.status(400).json({ 'msg': err.message });
         }
         res.status(200).json(user);
