@@ -13,6 +13,7 @@ console.log("DB CONNECTED");
 });
 //import route
 var userRoutes = require('./Routes/user');
+var quizRoutes = require('./Routes/quiz');
 
 //Middlewares
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(cors());
 //after middleware
 app.use('/api',userRoutes);
+app.use('/api',quizRoutes);
 //PORT
 const port = process.env.PORT || 8000;
 //Starting a server
