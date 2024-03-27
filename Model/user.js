@@ -43,7 +43,7 @@ var userSchema = new mongoose.Schema({
     hobbies: {
         type: String
     },
-    smoke: {
+    smokeOption: {
         type: String
     },
     drinkalchol: {
