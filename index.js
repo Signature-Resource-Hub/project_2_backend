@@ -8,7 +8,7 @@ const cors = require("cors");
 //import route
 var chatRoutes=require('./Routes/chat')
 var userUpdateRoutes=require('./Routes/user-router')
-var userRoutes=require('./Routes/user-router')
+var userRoutes=require('./Routes/user')
 //DB Connection
 mongoose
 .connect(process.env.DATABASE, {})
