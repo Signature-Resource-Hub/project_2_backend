@@ -6,6 +6,10 @@ var userSchema = new mongoose.Schema({
         required: true,
         ref: "register"
     },
+    partnerId :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
     name: {
         type: String,
         required: true,
@@ -60,6 +64,9 @@ var userSchema = new mongoose.Schema({
     },
     startlove: {
         type: Date
+    },
+    userData: {
+        type: Array,
     },
     user_type: {
         type: String,

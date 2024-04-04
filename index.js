@@ -15,6 +15,9 @@ mongoose
 .then(() => {
 console.log("DB CONNECTED");
 });
+//import route
+var userRoutes = require('./Routes/user');
+var quizRoutes = require('./Routes/quiz');
 
 
 //Middlewares
@@ -23,6 +26,7 @@ app.use(cookieParser());
 app.use(cors());
 //after middleware
 app.use('/api',userRoutes);
+app.use('/api',quizRoutes);
 app.use('/api',chatRoutes);
 app.use('/api',userUpdateRoutes);
 

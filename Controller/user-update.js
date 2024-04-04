@@ -2,10 +2,12 @@ var user=require('../Model/user');
 var reg = require('../Model/register')
 
 exports.getUser=(req,res)=>{
+    console.log(req.body)
     user.findOne({_id:req.body.userId}).then((data)=>{
         if (data) {
-            res.status(200).json(data);
             console.log(data)
+            res.status(200).json(data);
+           
         }
         else {
             console.log("1s")
