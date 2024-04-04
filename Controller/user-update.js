@@ -24,11 +24,6 @@ function isValidEmail(email) {
 }
 // Example usage:
 const email = "example@example.com";
-if (isValidEmail(email)) {
-    console.log("Email is valid");
-} else {
-    console.log("Email is invalid");
-}
 // Update email
 exports.updateEmail = (req, res) => {
     const { email } = req.body;
@@ -107,6 +102,3 @@ function isValidEmail(email) {
 function isValidUserType(user_type) {
     return user_type === "user" || user_type === "admin"; // Example validation
 }
-
-
-

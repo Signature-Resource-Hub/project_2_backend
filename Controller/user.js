@@ -24,6 +24,7 @@ exports.verifyUser = (req, res) => {
                 newUser.save()
                     .then((register) => {
                         if (register) {
+                            console.log("second")
                             return res.status(201).json({ msg: 'otpsend' });
                         }
                     })
@@ -31,52 +32,72 @@ exports.verifyUser = (req, res) => {
         })
     }
 };
+
 exports.verifyotp = async (req, res) => {
     const newUser = new Register(req.body);
-    const olduser =await Register.findOne({contactnumber:req.body.contactnumber})
+    const olduser = await Register.findOne({ contactnumber: req.body.contactnumber })
     const contactnumber = req.body.contactnumber;
     console.log(olduser)
     let otp = req.body.otp
     // Assuming your verification process succeeds here
     if (otp == '1234' && contactnumber == req.body.contactnumber) {
-        if(olduser.remark==="verified"){
+        if (olduser.remark === "verified") {
             const token = jwt.sign({ _id: olduser._id, usertype: olduser.user_type }, "millet");
             res.cookie("token", token, { expire: new Date() }, +9999)
             return res.status(201).json({ token: token, msg: 'Home page' });
-    }else{
-        // If verification is successful, proceed to save the user
-        var count = 0
-        Register.updateOne({ contactnumber: req.body.contactnumber }, { $set: { remark: "verified" } })
-            .then((register) => {
-                console.log(register)
-                if (register) {
-                    const token = jwt.sign({ _id: register._id, usertype: register.user_type }, "millet");
-                    res.cookie("token", token, { expire: new Date() }, +9999)
-                    return res.status(201).json({ token: token, msg: 'verified OTP' });
-                } else {
-                    return res.status(400).json({ msg: 'Failed to save user' });
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                return res.status(500).json({ msg: 'Internal Server Error', error: err });
-            });
-    } }else {
+        } else {
+            // If verification is successful, proceed to save the user
+            var count = 0
+            Register.updateOne({ contactnumber: req.body.contactnumber }, { $set: { remark: "verified" } })
+                .then((register) => {
+                    console.log(register)
+                    if (register) {
+                        const token = jwt.sign({ _id: register._id, usertype: register.user_type }, "millet");
+                        res.cookie("token", token, { expire: new Date() }, +9999)
+                        return res.status(201).json({ token: token, msg: 'verified OTP' });
+                    } else {
+                        return res.status(400).json({ msg: 'Failed to save user' });
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    return res.status(500).json({ msg: 'Internal Server Error', error: err });
+                });
+        }
+    } else {
         return res.status(400).json({ msg: 'Invalid OTP' });
         count = count + 1;
     }
 };
+
 exports.registerUser = (req, res) => {
     console.log(req.body)
     const newUser = new User(req.body);
-    newUser.save()
-        .then((user) => {
-            if (user) {
-                console.log("send")
-                return res.status(201).json({ token: token, msg: ' register successdfully' });
-            }
-        })
+    User.findOne({ regId: req.body.regId }).then((user) => {
+        if (user) {
+            console.log("first")
+            return res.status(400).json({ 'msg': 'account created' });
+        } else {
+            User.findOne({ email: req.body.email }).then((user) => {
+                if (user) {
+                    console.log("first")
+                    return res.status(400).json({ 'msg': 'email exist' });
+                } else {
+                    newUser.save()
+                        .then((user) => {
+                            if (user) {
+                                console.log("send")
+                                const token = jwt.sign({ _id: newUser._id, usertype: newUser.user_type }, "millet");
+                                res.cookie("token", token, { expire: new Date() }, +9999)
+                                return res.status(201).json({ token: token, msg: ' register successdfully' });
+                            }
+                        })
+                }
+            })
+        }
+    })
 };
+
 exports.completeprofile = async (req, res) => {
     try {
         console.log(req.body);
