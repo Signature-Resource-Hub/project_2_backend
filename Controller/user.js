@@ -24,6 +24,7 @@ exports.verifyUser = (req, res) => {
                 newUser.save()
                     .then((register) => {
                         if (register) {
+                            console.log("second")
                             return res.status(201).json({ msg: 'otpsend' });
                         }
                     })

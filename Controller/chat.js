@@ -22,6 +22,7 @@ exports.getchat=(req,res)=>{
 })
 .then((data) => {
     res.status(200).json(data);
+    console.log(data)
 })
 .catch((error) => {
     console.error("Error fetching chat messages:", error);
