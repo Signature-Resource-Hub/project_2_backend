@@ -3,12 +3,10 @@ var quizresSchema = new mongoose.Schema({
 
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: "user"
     },
     partnerId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: "user"
     },
     questionId: {
@@ -16,12 +14,7 @@ var quizresSchema = new mongoose.Schema({
         required: true,
         ref: "quiz"
     },
-    UserSelectedoption: {
-        required: true,
-        type: String
-    },
-    PartnerSelectedoption: {
-        required: true,
+    response: {
         type: String
     },
     user_type: {

@@ -11,6 +11,10 @@ var quizresSchema = new mongoose.Schema({
         required: true,
         ref: "relationquiz"
     },
+    answer: {
+        type: String,
+        required: true,
+    },
     user_type: {
         type: String,
         default: "user"
