@@ -15,9 +15,7 @@ exports.getUser=(req,res)=>{
         }
     });
 }
-
     
-
 // Helper function to validate email format
 function isValidEmail(email) {
     // Regular expression to check email format
@@ -51,7 +49,7 @@ exports.updateEmail = (req, res) => {
         try {
           console.log(req.body);
           const requiredFields = ['name','community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke','weight', 'yourgoals', ];
-        const emptyFields = requiredFields.filter(field => !req.body[field]);
+          const emptyFields = requiredFields.filter(field => !req.body[field]);
 
         if (emptyFields.length > 0) {
             console.log("1");

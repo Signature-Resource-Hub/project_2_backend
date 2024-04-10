@@ -50,7 +50,7 @@ exports.verifyotp = async (req, res) => {
     if (otp == '1234' && contactnumber == req.body.contactnumber) {
         if (olduser.remark == "verified") {
             console.log("hii")
-            const token = jwt.sign({ _id: olduser._id, usertype: olduser.user_type }, "millet");
+            const token = jwt.sign({ _id: olduser._id, usertype: olduser.user_type,status:"verified" }, "millet");
             res.cookie("token", token, { expire: new Date() }, +9999)
             return res.status(201).json({ token: token, msg: 'Homepage' });
         } else {
@@ -59,10 +59,11 @@ exports.verifyotp = async (req, res) => {
 
             var count = 0
             Register.updateOne({ contactnumber: req.body.contactnumber }, { $set: { remark: "verified" } })
-                .then((register) => {
-                    console.log(register)
+                .then(async (register) => {
+                    const olduser = await Register.findOne({ contactnumber: req.body.contactnumber })
+                    console.log(olduser)
                     if (register) {
-                        const token = jwt.sign({ _id: register._id, usertype: register.user_type }, "millet");
+                        const token = jwt.sign({_id: olduser._id, usertype: olduser.user_type,status:"not verified" }, "millet");
                         res.cookie("token", token, { expire: new Date() }, +9999)
                         return res.status(201).json({ token: token, msg: 'verified OTP' });
                     } else {
@@ -87,7 +88,7 @@ exports.registerUser = (req, res) => {
     console.log(req.body)
     const newUser = new User(req.body);
     User.findOne({ regId: req.body.regId }).then((user) => {
-        if (user) {
+        if (user) {+
             console.log("first")
             return res.status(400).json({ 'msg': 'account created' });
         } else {
