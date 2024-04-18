@@ -9,6 +9,7 @@ const cors = require("cors");
 var chatRoutes=require('./Routes/chat')
 var userUpdateRoutes=require('./Routes/user-router')
 var userRoutes=require('./Routes/user')
+var gameRoutes=require('./Routes/game')
 //DB Connection
 mongoose
 .connect(process.env.DATABASE, {})
@@ -29,6 +30,7 @@ app.use('/api',userRoutes);
 app.use('/api',quizRoutes);
 app.use('/api',chatRoutes);
 app.use('/api',userUpdateRoutes);
+app.use('/api',gameRoutes);
 
 //PORT
 const port = process.env.PORT || 8000;
