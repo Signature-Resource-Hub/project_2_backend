@@ -6,6 +6,6 @@ var userController = require('../Controller/user-update');
 routes.post('/updateemail', userController.updateEmail);
 routes.post('/updateprofile', userController.updateprofile);
 routes.post('/getuser',userController.getUser);
-//routes.post('/chat', userController.chat);
+
 
 module.exports = routes;

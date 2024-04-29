@@ -10,6 +10,8 @@ var chatRoutes=require('./Routes/chat')
 var userUpdateRoutes=require('./Routes/user-router')
 var userRoutes=require('./Routes/user')
 var gameRoutes=require('./Routes/game')
+var tempcoderoutes=require('./Routes/tempcode_route')
+var connection=require('./Routes/connection')
 //DB Connection
 mongoose
 .connect(process.env.DATABASE, {})
@@ -31,6 +33,8 @@ app.use('/api',quizRoutes);
 app.use('/api',chatRoutes);
 app.use('/api',userUpdateRoutes);
 app.use('/api',gameRoutes);
+app.use('/api',tempcoderoutes);
+app.use('/api',connection);
 
 //PORT
 const port = process.env.PORT || 8000;
