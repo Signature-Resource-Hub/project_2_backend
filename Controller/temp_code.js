@@ -6,6 +6,7 @@ exports.temcodegen = (req, res) => {
     console.log('Generated UUID:', uniqueId);
     const userid= req.body.user_id
     const tempCode = new TempCode({ uniqueId: uniqueId ,user_id:userid});
+    console.log(tempCode)
 
     tempCode.save()
         .then(savedTempCode => {
