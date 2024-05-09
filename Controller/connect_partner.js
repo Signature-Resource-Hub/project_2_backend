@@ -43,6 +43,7 @@ exports.connectUserAndPartner = async (req, res) => {
 };
 exports.getconnectdetails = async (req, res) => {
     try {
+        console.log(1)
         // Extract the generated code from the request body
         Connect.findOne( { $or: [{ userId: req.body.userId }, { partnerId: req.body.userId }] },) .then((data)=>{
             if (data) {

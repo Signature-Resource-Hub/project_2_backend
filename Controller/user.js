@@ -23,16 +23,16 @@ exports.verifyUser = (req, res) => {
                 console.log("user",compregister)
                 if(compregister.remark==="verified" || compregister.remark==="not verified" || compregister.remark==="partially verified"){
                     console.log('ww')
-                    client.verify.services(serviceSID)
-                        .verifications
-                        .create({
-                            to: `+91${req.body.contactnumber}`,
-                            channel: "sms"
-                        })
-                    .then((resp) =>{
-                        console.log("response",resp)
+                    // client.verify.services(serviceSID)
+                    //     .verifications
+                    //     .create({
+                    //         to: `+91${req.body.contactnumber}`,
+                    //         channel: "sms"
+                    //     })
+                    //.then((resp) =>{
+                        //console.log("response",resp)
                     return res.status(200).json({ msg: 'already existing verified user(otp send)', compregister });
-                    })
+                   // })
                 }
                 else{
                     
@@ -44,15 +44,15 @@ exports.verifyUser = (req, res) => {
                 newUser.save()
                     .then((register) => {
                         if (register) {
-                            client.verify.services(serviceSID)
-                        .verifications
-                        .create({
-                            to: `+91${req.body.contactnumber}`,
-                            channel: "sms"
-                        }).then((resp) =>{
+                        //     client.verify.services(serviceSID)
+                        // .verifications
+                        // .create({
+                        //     to: `+91${req.body.contactnumber}`,
+                        //     channel: "sms"
+                        // }).then((resp) =>{
                             console.log("otpsend")
                             return res.status(201).json(compregister);
-                        })
+                        //})
                     
                     }})
             }
@@ -67,15 +67,15 @@ exports.verifyotp = async (req, res) => {
     const olduser = await Register.findOne({ contactnumber: req.body.contactnumber })
     const contactnumber = req.body.contactnumber;
     let otp = req.body.otp
-    client.verify.services(serviceSID)
-    .verificationChecks
-    .create({
-        to: `+91${contactnumber}`,
-        code: otp
-    }).then(async (confirm)=>{
-        if(confirm.valid && contactnumber == req.body.contactnumber){
+    // client.verify.services(serviceSID)
+    // .verificationChecks
+    // .create({
+    //     to: `+91${contactnumber}`,
+    //     code: otp
+    // }).then(async (confirm)=>{
+    //     if(confirm.valid && contactnumber == req.body.contactnumber){
     // Assuming your verification process succeeds here
-    //if (otp == '1234' && contactnumber == req.body.contactnumber) {
+    if (otp == '1234' && contactnumber == req.body.contactnumber) {
         console.log("in verify otp")
         if(olduser){
             //console.log('olduser')
@@ -145,8 +145,8 @@ exports.verifyotp = async (req, res) => {
         return res.status(400).json({ msg: 'Invalid OTP' });
         count = count + 1;
     }
-})
 }
+//)}
 
 //create profile
 exports.registerUser = (req, res) => {
