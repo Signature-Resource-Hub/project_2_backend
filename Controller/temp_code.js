@@ -4,10 +4,8 @@ const crypto = require('crypto');
 exports.temcodegen = (req, res) => {
     const uniqueId = crypto.randomUUID().substr(0, 6);
     console.log('Generated UUID:', uniqueId);
-    const userid= req.body.user_id
+    const userid= req.body.userId
     const tempCode = new TempCode({ uniqueId: uniqueId ,user_id:userid});
-    console.log(tempCode)
-
     tempCode.save()
         .then(savedTempCode => {
             console.log("Added successfully:", savedTempCode);
