@@ -6,6 +6,25 @@ var regSchema = new mongoose.Schema({
         unique : true,
         maxlength: 10,
         },
+        name: {
+            type: String,
+            required: true,
+            maxlength: 52,
+        },
+        email: {
+            type: String,
+            trim: true,
+            required: true,
+            unique: true
+        },
+        gender: {
+            type: String,
+            required: true
+        },
+        dob: {
+            type: String,
+            required: true
+        },
         timestamp:{
             type:String,
             default:Date.now()
@@ -16,7 +35,7 @@ var regSchema = new mongoose.Schema({
         },
         remark:{
             type:String,
-            default:"not verified"
+            default:"not completed"
         }
 })
 module.exports = mongoose.model("register",regSchema);

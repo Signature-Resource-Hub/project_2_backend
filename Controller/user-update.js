@@ -3,7 +3,21 @@ var reg = require('../Model/register')
 
 exports.getUser=(req,res)=>{
     console.log(req.body)
-    user.findOne({_id:req.body.userId}).then((data)=>{
+    reg.findOne({_id:req.body.userId}).then((data)=>{
+        if (data) {
+            console.log(data)
+            res.status(200).json(data);
+           
+        }
+        else {
+            console.log("1s")
+            return res.status(400).json({ 'msg': "internalserver" });
+        }
+    });
+}
+exports.getprofile=(req,res)=>{
+    console.log(req.body)
+    user.findOne({userId:req.body.userId}).then((data)=>{
         if (data) {
             console.log(data)
             res.status(200).json(data);
@@ -48,7 +62,7 @@ exports.updateEmail = (req, res) => {
     exports.updateprofile = async (req, res) => {
         try {
           console.log(req.body);
-          const requiredFields = ['name','community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke','weight', 'yourgoals', ];
+          const requiredFields = ['community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke','weight', 'yourgoals', ];
           const emptyFields = requiredFields.filter(field => !req.body[field]);
 
         if (emptyFields.length > 0) {
@@ -59,7 +73,7 @@ exports.updateEmail = (req, res) => {
             $set: req.body, // Include all fields in the update document
           };
       
-          const updatedUser = await user.updateOne({ _id: req.body._id }, updateDoc);
+          const updatedUser = await user.updateOne({ userId: req.body._id }, updateDoc);
           if (updatedUser) {
             console.log("2");
             console.log("Profile updated successfully!");
