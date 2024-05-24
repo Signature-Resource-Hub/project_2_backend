@@ -1,33 +1,10 @@
 var mongoose = require("mongoose");
-var userSchema = new mongoose.Schema({
+var profileSchema = new mongoose.Schema({
 
-    regId: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "register"
-    },
-    partnerId :{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
-    },
-    name: {
-        type: String,
-        required: true,
-        maxlength: 52,
-    },
-    email: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true
-    },
-    gender: {
-        type: String,
-        required: true
-    },
-    dob: {
-        type: Date,
-        required: true
     },
     height: {
         type: String
@@ -53,13 +30,13 @@ var userSchema = new mongoose.Schema({
     drinkalchol: {
         type: String
     },
-    yourgoals: {
+    educationqualification: {
         type: String
     },
     dreams: {
         type: String
     },
-    settledownplan: {
+    Designation: {
         type: String
     },
     startlove: {
@@ -73,4 +50,4 @@ var userSchema = new mongoose.Schema({
         default: "user"
     }
 })
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("profile", profileSchema);
