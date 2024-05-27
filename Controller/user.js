@@ -246,7 +246,7 @@ exports.registerUser = (req, res) => {
                 Register.findOne({contactnumber:req.body.contactnumber}).then((olduser) => {
                 if(olduser){
                 console.log(olduser._id)
-                const token = jwt.sign({ _id: olduser._id, usertype: newUser.user_type }, "millet");
+                const token = jwt.sign({ _id: olduser._id, usertype: olduser.user_type,status:"verified" }, "millet");
                 res.cookie("token", token, { expire: new Date() }, +9999)
                 console.log(token)
                 return res.status(201).json({ token: token, msg: ' register successdfully' });
@@ -347,7 +347,7 @@ exports.completeprofile = async (req, res) => {
                 if(profile){
                     Register.updateOne({_id:profile.userId},{$set:{remark:"completed"}}).then((updated)=>{
                         if(updated){
-                            const token = jwt.sign({_id: profile.userId, usertype: "user",status:"completed" }, "millet");
+                            const token = jwt.sign({_id: profile.userId, usertype: "user",status:"verified" }, "millet");
                             res.cookie("token", token, { expire: new Date() }, +9999)
                             res.json({ message: "Profile completed successfully", token:token  }); // Send a success response
                         }
