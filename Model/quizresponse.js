@@ -9,6 +9,9 @@ var quizresSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
+    topic: {
+        type: String
+    },
     questionId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

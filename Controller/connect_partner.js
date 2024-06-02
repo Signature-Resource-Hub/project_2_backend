@@ -51,7 +51,8 @@ exports.getconnectdetails = async (req, res) => {
                 return res.status(200).json(data);
                
             }else {
-                return res.status(400).json({ 'msg': "internalserver" });
+                console.log(3)
+                return res.status(201).json({ 'msg': "no partner found" });
             }
         });
     } catch (error) {
