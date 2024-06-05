@@ -61,3 +61,24 @@ exports.getconnectdetails = async (req, res) => {
     }
 };
 
+  exports.unpairPartner = async (req, res) => {
+    try {
+      const userId = req.body.userId;
+      const partnerId = req.body.partnerId;
+  
+      // Find the connection document
+      const connection = await Connect.findOne({ $or: [{ userId, partnerId }, { userId: partnerId, partnerId: userId }] });
+  
+      if (!connection) {
+        return res.status(404).json({ 'msg': "No partner found" });
+      }
+  
+      // Remove the partner
+      await Connect.deleteOne({ _id: connection._id });
+  
+      return res.status(200).json({ 'msg': "Partner removed successfully" });
+    } catch (error) {
+      console.error('Error removing partner:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  };

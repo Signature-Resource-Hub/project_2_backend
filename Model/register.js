@@ -22,7 +22,7 @@ var regSchema = new mongoose.Schema({
             required: true
         },
         dob: {
-            type: String,
+            type: Date,
             required: true
         },
         timestamp:{
