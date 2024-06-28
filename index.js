@@ -12,6 +12,8 @@ var userRoutes=require('./Routes/user')
 var gameRoutes=require('./Routes/game')
 var tempcoderoutes=require('./Routes/tempcode_route')
 var connection=require('./Routes/connection')
+var paymentroutes=require('./Routes/payments')
+
 //DB Connection
 mongoose
 .connect(process.env.DATABASE, {})
@@ -35,6 +37,7 @@ app.use('/api',userUpdateRoutes);
 app.use('/api',gameRoutes);
 app.use('/api',tempcoderoutes);
 app.use('/api',connection);
+app.use('/api',paymentroutes);
 
 //PORT
 const port = process.env.PORT || 8000;
@@ -42,3 +45,10 @@ const port = process.env.PORT || 8000;
 app.listen(port, () => {
 console.log(`app is running at ${port}`);
 });
+// const port = process.env.PORT || 8000;
+// const ip = '192.168.29.37'; // Replace with your desired IP address
+
+// // Starting a server
+// app.listen(port, ip, () => {
+//   console.log(`app is running at ${ip}:${port}`);
+// });

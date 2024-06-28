@@ -33,6 +33,13 @@ var regSchema = new mongoose.Schema({
         type:String,
         default:"user"
         },
+        subscription:{
+            type:String,
+            default:"unsubscribe"
+        },
+        validityEndDate:{
+            type:String,
+        },
         remark:{
             type:String,
             default:"not completed"
