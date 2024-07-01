@@ -50,7 +50,7 @@ exports.getchoice = async (req, res) => {
         const player2Choice = choice[1].playerChoice; // Assuming second element is player 2
         // Compare the choices here
         if (player1Choice === player2Choice) {
-          result="It's a tie! Both players chose " + player1Choice;
+          result="It's a tie! Both players choose " + player1Choice;
         } else {
           // Determine the winner based on Rock-Paper-Scissors rules
           if (player1Choice === "Rock") {
