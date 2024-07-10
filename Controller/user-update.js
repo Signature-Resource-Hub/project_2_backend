@@ -169,7 +169,7 @@ exports.updateEmail = async (req, res) => {
     exports.updateprofile = async (req, res) => {
         try {
           console.log(req.body);
-          const requiredFields = ['community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'settledownplan', 'smoke','weight', 'yourgoals', ];
+          const requiredFields = ['community', 'dreams', 'drinkalchol', 'height', 'hobbies', 'interests', 'location', 'educationqualification', 'smoke','weight', 'Designation', ];
           const emptyFields = requiredFields.filter(field => !req.body[field]);
 
         if (emptyFields.length > 0) {
